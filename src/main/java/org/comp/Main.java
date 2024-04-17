@@ -39,13 +39,15 @@ public class Main {
             case 1:
                 cadastrarprodutos();
                 break;
-/*
+
             case 2:
                 listarprodutos();
                 break;
+
             case 3:
                 comprarprodutos();
                 break;
+                  /*
             case 4:
                 vercarrinho();
                 break;
@@ -64,19 +66,62 @@ public class Main {
 
     private static void cadastrarprodutos(){
         Produto produto = new Produto();
+        Integer id = 0;
         System.out.println("INFORME O NOME DO PRODUTO");
         String nome = input.next();
         System.out.println("INFORME O VALOR DO PRODUTO");
         Double preco = input.nextDouble();
         produto.setNome(nome);
         produto.setPreco(preco);
+        produto.setId(id + 1);
         produtos.add(produto);
-
         System.out.println("=====================================================================");
-
-        System.out.println(produto.toString());
+        //System.out.println(produto.toString());
+        System.out.println("Produto cadastrado com sucesso" + " " + produto.getNome());
+        menu();
 
     }
 
+    private static void listarprodutos(){
 
-}
+        if (produtos.size() > 0){
+
+            System.out.println("=================LISTA DE PRODUTOS ==============");
+
+            for (Produto p : produtos){
+                System.out.println(p);
+                menu();
+            }
+        }else{
+            System.out.println("Nenhum produto cadastrado");
+
+        }
+        menu();
+
+    }
+
+    private static void comprarprodutos(){
+
+        System.out.println("Informe ID do protudo");
+        Integer id = Integer.parseInt(input.next());
+        boolean produtoexistente = false;
+
+
+
+            for (Produto p : produtos){
+                if (p.getId() == id){
+                    int qtd = 0;
+                    try {
+                        qtd = carrinho.get(p);
+                        carrinho.put(p, qtd + 1);
+                    }catch (NullPointerException e){
+                        carrinho.put(p,1);
+                    }
+                    System.out.println(p.getNome() +  "adicionado ao carrinho");
+                    produtoexistente = true;
+                }
+            }
+        }
+
+
+    }
