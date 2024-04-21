@@ -47,11 +47,11 @@ public class Main {
             case 3:
                 comprarprodutos();
                 break;
-                  /*
+
             case 4:
                 vercarrinho();
                 break;
-*/
+
             case 5:
                 System.out.println("Obrigado !!!");
                 //System.exit();
@@ -66,14 +66,17 @@ public class Main {
 
     private static void cadastrarprodutos(){
         Produto produto = new Produto();
-        Integer id = 0;
+        Integer id = produto.getId();
         System.out.println("INFORME O NOME DO PRODUTO");
         String nome = input.next();
         System.out.println("INFORME O VALOR DO PRODUTO");
         Double preco = input.nextDouble();
+        System.out.println("Informe a quantidade de entrada");
+        Integer qtdProduto = input.nextInt();
         produto.setNome(nome);
         produto.setPreco(preco);
-        produto.setId(id + 1);
+        produto.setId(id);
+        produto.setQuantidade(qtdProduto);
         produtos.add(produto);
         System.out.println("=====================================================================");
         //System.out.println(produto.toString());
@@ -89,8 +92,10 @@ public class Main {
             System.out.println("=================LISTA DE PRODUTOS ==============");
 
             for (Produto p : produtos){
-                System.out.println(p);
-                menu();
+                System.out.println("ID PRODUTO" + " " + p.getId());
+                System.out.println("NOME PRODUTO" + " " +p.getNome());
+                System.out.println("QUANTIDADE PRODUTO" + " " +p.getQuantidade());
+
             }
         }else{
             System.out.println("Nenhum produto cadastrado");
@@ -104,23 +109,56 @@ public class Main {
 
         System.out.println("Informe ID do protudo");
         Integer id = Integer.parseInt(input.next());
+        System.out.println("Infome a quantidade desejada");
+        Integer qtd1 = Integer.parseInt(input.next());
         boolean produtoexistente = false;
 
 
 
             for (Produto p : produtos){
                 if (p.getId() == id){
-                    int qtd = 0;
+                    int qtd = qtd1;
+                    if (qtd1 <= p.getQuantidade()){
+                        System.out.println("Disponível");
+                    }else{
+                        System.out.println("Quantidade indisponível no estoque" + " " + "EM ESTOQUE NO MOMENTO : " + " "+ p.getQuantidade());
+                        menu();
+                    }
                     try {
                         qtd = carrinho.get(p);
-                        carrinho.put(p, qtd + 1);
+                        carrinho.put(p, qtd1 + 1);
                     }catch (NullPointerException e){
-                        carrinho.put(p,1);
+                        carrinho.put(p,id);
                     }
-                    System.out.println(p.getNome() +  "adicionado ao carrinho");
+                    System.out.println(p.getNome() + " " + "adicionado ao carrinho");
+                    System.out.println(qtd + " " + "quantidade");
                     produtoexistente = true;
+                    menu();
+                }else{
+                    System.out.println("Não existe este produto na lista");
+                    menu();
                 }
             }
+        }
+
+        private static void vercarrinho(){
+
+        System.out.println("-------MINHA LISTA DE COMRAS-----------");
+
+        if(carrinho.size() > 0){
+
+            for (Produto p: carrinho.keySet()){
+                System.out.println("Produto" + carrinho.get(p) );
+
+            }
+
+
+
+        }
+
+
+
+
         }
 
 

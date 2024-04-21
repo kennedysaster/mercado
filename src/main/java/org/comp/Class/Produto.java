@@ -6,19 +6,29 @@ public class Produto {
     //criando um contador para os produtos iniciando com 1
     private static int cont = 1;
     //variáveis
-    private int id;
+    private int id = cont;
     private String nome;
     private Double preco;
+    private int quantidade;
 
-    //construtor para utilizacao das variaveis
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+//construtor para utilizacao das variaveis
 
 
     public Produto(int id, String nome, Double preco) {
 
-        this.id = cont;
+        this.id += cont;
         this.nome = nome;
         this.preco = preco;
         Produto.cont += 1;
+
     }
 
     public Produto(String nome, Double preco, int id) {
@@ -54,9 +64,9 @@ public class Produto {
     @Override
     public String toString() {
         return "Produto{" +
-                "id=" + this.getId() +
-                ", \nNome Produto = " + this.getNome() +
-                " \nPreco Produto = " + Utils.doubleString(this.getPreco());
-
+                "nome='" + nome + '\'' +
+                ", preco=" + preco +
+                ", quantidade=" + quantidade +
+                '}';
     }
 }
